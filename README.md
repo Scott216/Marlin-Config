@@ -1,4 +1,4 @@
-# Marlin-Config
+# Marlin Firmare Configuration for Ender-3 3D Printer
 MarlinFirmware config files for Ender-3 and Ender-3 Pro
 
 Marlin version 2.1.2.5 for my Ender-3 with mainboard v4.7.2 and Ender-3 Pro with mainboard v4.2.2
