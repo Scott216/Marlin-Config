@@ -76,10 +76,12 @@
  *  SRG_MACHINE_NAME  // Make it Ender-3 PRO SRG followed by my version #.  Will show up on LCD and used to confirm firmware was installed
  *  NO_CREALITY_422_DRIVER_WARNING  // Suppreses warning about choosing stepper motor drivers 
  *
+ * 6/7/25 - Added skew correction per CaliLantern Calculator 
+ *
  */
 #pragma once
 
-#define SRG_MACHINE_NAME "Ender-3 Pro SRG v1.11" 
+#define SRG_MACHINE_NAME "Ender-3 Pro SRG v1.12" 
 
 
 #define CONFIG_EXAMPLES_DIR "Creality/Ender-3 Pro/CrealityV422"
@@ -2232,33 +2234,32 @@
  *    +-------------->X     +-------------->X     +-------------->Y
  *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
  */
-//#define SKEW_CORRECTION
 
+#define SKEW_CORRECTION
 #if ENABLED(SKEW_CORRECTION)
   // Input all length measurements here:
   #define XY_DIAG_AC 282.8427124746
   #define XY_DIAG_BD 282.8427124746
   #define XY_SIDE_AD 200
 
+
   // Or, set the XY skew factor directly:
-  //#define XY_SKEW_FACTOR 0.0
+  #define XY_SKEW_FACTOR -0.00090032
 
-  //#define SKEW_CORRECTION_FOR_Z
+  #define SKEW_CORRECTION_FOR_Z
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
-    #define XZ_DIAG_AC 282.8427124746
-    #define XZ_DIAG_BD 282.8427124746
-    #define YZ_DIAG_AC 282.8427124746
-    #define YZ_DIAG_BD 282.8427124746
-    #define YZ_SIDE_AD 200
-
-    // Or, set the Z skew factors directly:
-    //#define XZ_SKEW_FACTOR 0.0
-    //#define YZ_SKEW_FACTOR 0.0
-  #endif
+    #define XZ_DIAG_AC 141.527
+    #define XZ_DIAG_BD 141.315
+    #define YZ_DIAG_AC 141.294
+    #define YZ_DIAG_BD 141.548
+    #define YZ_SIDE_AD 100.013
+    #define XZ_SKEW_FACTOR 0.00149732
+    #define YZ_SKEW_FACTOR -0.00179559
+  #endif // (SKEW_CORRECTION_FOR_Z)
 
   // Enable this option for M852 to set skew at runtime
-  //#define SKEW_CORRECTION_GCODE
-#endif
+  #define SKEW_CORRECTION_GCODE
+#endif  // (SKEW_CORRECTION)
 
 //=============================================================================
 //============================= Additional Features ===========================

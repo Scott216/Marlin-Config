@@ -19,8 +19,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  *
- *  SRG Revision History - for Ender-3 Pro with v4.2.2 board 
- * 5/11/25 (SRG V1.11)
+ * SRG Revision History - for Ender-3 Pro with v4.2.2 board 
+ * 5/11/25 (SRG V1.12)
  * Uncomment the following:
  * ----------------------------------------
  *   PROBE_OFFSET_WIZARD        // Add a Probe Z Offset calibration option to the LCD menu
