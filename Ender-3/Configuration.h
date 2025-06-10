@@ -76,12 +76,12 @@
  * -------------------------------
  *  SRG_MACHINE_NAME  // Make it Ender-3 SRG followed by my version #.  Will show up on LCD and used to confirm firmware was installed
  *
- *
+ * 6/10/25 - adjusted probing speed.  Added skew compensation based on CaliLantern Calculator 
  *
  */
 #pragma once
 
-#define SRG_MACHINE_NAME "Ender-3 SRG V1.11"
+#define SRG_MACHINE_NAME "Ender-3 SRG V1.12"
 
 #define CONFIG_EXAMPLES_DIR "Creality/Ender-3/CrealityV427"
 
@@ -1576,20 +1576,20 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -43, -10, -2.4 }
+#define NOZZLE_TO_PROBE_OFFSET { -43, -10, -2.65 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN 15  //default 10
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_FEEDRATE (150*60)  // default (133*60)
+#define XY_PROBE_FEEDRATE 10000  // default (133*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_FEEDRATE_FAST (10*60) // default is (4*60)
+#define Z_PROBE_FEEDRATE_FAST 1000 // default is (4*60)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
-#define Z_PROBE_FEEDRATE_SLOW (Z_PROBE_FEEDRATE_FAST / 4)  // default is /2
+#define Z_PROBE_FEEDRATE_SLOW 150  // default is /2
 
 /**
  * Probe Activation Switch
@@ -1654,8 +1654,8 @@
  *     But: 'M851 Z+1' with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // (mm) Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  7 // (mm) Z Clearance between probe points. default 5, made higher to avoid clips
-#define Z_CLEARANCE_MULTI_PROBE     7 // (mm) Z Clearance between multiple probes. defailt 5, made higher to avoid clips 
+#define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points. default 5
+#define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes. defailt 5
 #define Z_AFTER_PROBING            15 // (mm) Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // (mm) Farthest distance below the trigger-point to go before stopping
@@ -2230,7 +2230,7 @@
  *    +-------------->X     +-------------->X     +-------------->Y
  *     XY_SKEW_FACTOR        XZ_SKEW_FACTOR        YZ_SKEW_FACTOR
  */
-//#define SKEW_CORRECTION
+#define SKEW_CORRECTION
 
 #if ENABLED(SKEW_CORRECTION)
   // Input all length measurements here:
@@ -2239,19 +2239,19 @@
   #define XY_SIDE_AD 200
 
   // Or, set the XY skew factor directly:
-  //#define XY_SKEW_FACTOR 0.0
+  #define XY_SKEW_FACTOR -0.00010019
 
-  //#define SKEW_CORRECTION_FOR_Z
+
+  #define SKEW_CORRECTION_FOR_Z
   #if ENABLED(SKEW_CORRECTION_FOR_Z)
     #define XZ_DIAG_AC 282.8427124746
     #define XZ_DIAG_BD 282.8427124746
     #define YZ_DIAG_AC 282.8427124746
     #define YZ_DIAG_BD 282.8427124746
     #define YZ_SIDE_AD 200
+    #define XZ_SKEW_FACTOR -0.01034806
+    #define YZ_SKEW_FACTOR 0.01722116
 
-    // Or, set the Z skew factors directly:
-    //#define XZ_SKEW_FACTOR 0.0
-    //#define YZ_SKEW_FACTOR 0.0
   #endif
 
   // Enable this option for M852 to set skew at runtime
