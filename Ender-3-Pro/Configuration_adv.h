@@ -20,7 +20,7 @@
  *
  *
  * SRG Revision History - for Ender-3 Pro with v4.2.2 board 
- * 5/11/25 (SRG V1.12)
+ * 8/29/25, SRG V1.13,  This is the same as v1.12, only configuration.h changed with v1.13
  * Uncomment the following:
  * ----------------------------------------
  *   PROBE_OFFSET_WIZARD        // Add a Probe Z Offset calibration option to the LCD menu
