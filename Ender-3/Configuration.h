@@ -19,7 +19,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * SRG revision history - for Ender-3 with v4.2.7 board 
- * 5/13/25
+ * 8/29/25
  * Uncommented the following: 
  * -------------------------------
  *  BLTOUCH
@@ -29,17 +29,16 @@
  *  Z_SAFE_HOMING
  *  ENABLE_LEVELING_AFTER_G28  // Don't need M420 S1 if you use this
  *  FILAMENT_RUNOUT_SENSOR  // Requires ADVANCED_PAUSE_FEATURE in Configuration_adv.h file 
- *  MESH_EDIT_MENU
  *  Z_MIN_PROBE_REPEATABILITY_TEST
  *  ABL_BILINEAR_SUBDIVISION
  *  S_CURVE_ACCELERATION  // Smoother acceleration curves, Uses more flash, but my board has 512K
  *  NOZZLE_PARK_FEATURE // Safe nozzle parking
  *  PRINTCOUNTER  // Track print statistics
- *  PROBING_HEATERS_OFF       // Turn heaters off when probing to reduce electrical noise 
  *  Z_AFTER_PROBING   15  // change to 15 
  *  PIDTEMPBED
  *  EXTRAPOLATE_BEYOND_GRID  // Uses more flash, but my board has 512K
  *  DISABLE_OTHER_EXTRUDERS
+ *  FILAMENT_RUNOUT_DISTANCE_MM    // uncommented and set to 50, default is 25, still need M412 D50 in startup script
  *
  *
  * Comment OUT the following:
@@ -77,11 +76,13 @@
  *  SRG_MACHINE_NAME  // Make it Ender-3 SRG followed by my version #.  Will show up on LCD and used to confirm firmware was installed
  *
  * 6/10/25 - adjusted probing speed.  Added skew compensation based on CaliLantern Calculator 
+ * 8/29/25 - Enabled FILAMENT_RUNOUT_DISTANCE_MM, though you still need M412 50D in script
+ *           Commented  out MESH_EDIT_MENU and PROBING_HEATERS_OFF
  *
  */
 #pragma once
 
-#define SRG_MACHINE_NAME "Ender-3 SRG V1.12"
+#define SRG_MACHINE_NAME "Ender-3 SRG V1.13"
 
 #define CONFIG_EXAMPLES_DIR "Creality/Ender-3/CrealityV427"
 
@@ -1680,7 +1681,7 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-#define PROBING_HEATERS_OFF       // Turn heaters off when probing
+// #define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
   //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
   //#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
@@ -1920,7 +1921,7 @@
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  //#define FILAMENT_RUNOUT_DISTANCE_MM 25
+  #define FILAMENT_RUNOUT_DISTANCE_MM 50
 
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
@@ -2125,7 +2126,7 @@
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
   #define LCD_PROBE_Z_RANGE 4     // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment
-  #define MESH_EDIT_MENU        // Add a menu to edit mesh points
+  // #define MESH_EDIT_MENU        // Add a menu to edit mesh points
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
